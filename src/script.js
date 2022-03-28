@@ -13,8 +13,8 @@ import testFragmentShaders from './shaders/test/fragment.glsl'
 const gui = new dat.GUI({width: 400})
 
 //textures
-const texturesLoader  = new THREE.TextureLoader()
-const textureFlag = texturesLoader.load('/textures/Francia.jpg')
+const textureLoader = new THREE.TextureLoader()
+const flagTexture = textureLoader.load('/textures/flag-french.jpg')
 
 //canvas
 const canvas = document.querySelector('canvas.webgl')
@@ -34,8 +34,8 @@ const material = new THREE.RawShaderMaterial(
         {
             uFrequency: {value: new THREE.Vector2(10, 5)},
             uTime: {value: 0},
-            uTextures: {value: textureFlag },
-            uColor: {value: new THREE.Color('orange')}
+            uTextures: {value: flagTexture },
+            uColor: {value: new THREE.Color('orange')},
         }
 })
 gui.add(material.uniforms.uFrequency.value, 'x').min(0).max(20).step(0.01).name('Xfrequency')
@@ -49,6 +49,7 @@ const randoms = new Float32Array(count)
 for(let i = 0; i < count; i++ ){
     randoms[i] = Math.random()
 }
+geometry.setAttribute('aRandom', new THREE.BufferAttribute(randoms, 1))
 
 
 //Mesh
